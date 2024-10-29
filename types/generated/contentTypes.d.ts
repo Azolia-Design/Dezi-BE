@@ -788,6 +788,64 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiDealDeal extends Schema.CollectionType {
+  collectionName: 'deals';
+  info: {
+    singularName: 'deal';
+    pluralName: 'deals';
+    displayName: 'Deal';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    TitleDeal: Attribute.String;
+    Code: Attribute.Boolean;
+    ExpireDate: Attribute.DateTime;
+    DescriptionHotDeal: Attribute.Text;
+    DescriptionCurrentCost: Attribute.Text;
+    tags: Attribute.Relation<'api::deal.deal', 'oneToMany', 'api::tag.tag'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::deal.deal', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::deal.deal', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMainTagMainTag extends Schema.CollectionType {
+  collectionName: 'main_tags';
+  info: {
+    singularName: 'main-tag';
+    pluralName: 'main-tags';
+    displayName: 'MainTag';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::main-tag.main-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::main-tag.main-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProductCategoryProductCategory
   extends Schema.CollectionType {
   collectionName: 'product_categories';
@@ -831,18 +889,28 @@ export interface ApiProductDesignProductDesign extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String;
-    Thumbnail: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Description: Attribute.Blocks;
-    product_categories: Attribute.Relation<
-      'api::product-design.product-design',
-      'oneToMany',
-      'api::product-category.product-category'
-    >;
+    ToolName: Attribute.String;
+    Thumbnail: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    ToolDescriptionFull: Attribute.Blocks;
     tags: Attribute.Relation<
       'api::product-design.product-design',
       'oneToMany',
       'api::tag.tag'
+    >;
+    VisitLink: Attribute.String;
+    AffiliateLink: Attribute.String;
+    Logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    Featured: Attribute.Boolean;
+    HotDeals: Attribute.Boolean;
+    Deals: Attribute.Relation<
+      'api::product-design.product-design',
+      'oneToMany',
+      'api::deal.deal'
+    >;
+    main_tag: Attribute.Relation<
+      'api::product-design.product-design',
+      'oneToOne',
+      'api::main-tag.main-tag'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -902,6 +970,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::deal.deal': ApiDealDeal;
+      'api::main-tag.main-tag': ApiMainTagMainTag;
       'api::product-category.product-category': ApiProductCategoryProductCategory;
       'api::product-design.product-design': ApiProductDesignProductDesign;
       'api::tag.tag': ApiTagTag;

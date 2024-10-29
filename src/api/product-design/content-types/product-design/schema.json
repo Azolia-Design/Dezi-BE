@@ -12,12 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "ToolName": {
       "type": "string"
     },
     "Thumbnail": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "allowedTypes": [
         "images",
@@ -26,18 +26,46 @@
         "audios"
       ]
     },
-    "Description": {
+    "ToolDescriptionFull": {
       "type": "blocks"
-    },
-    "product_categories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product-category.product-category"
     },
     "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag"
+    },
+    "VisitLink": {
+      "type": "string"
+    },
+    "AffiliateLink": {
+      "type": "string"
+    },
+    "Logo": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Featured": {
+      "type": "boolean"
+    },
+    "HotDeals": {
+      "type": "boolean"
+    },
+    "Deals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::deal.deal"
+    },
+    "main_tag": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::main-tag.main-tag"
     }
   }
 }

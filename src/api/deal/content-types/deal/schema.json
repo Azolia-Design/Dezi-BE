@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deals",
+  "info": {
+    "singularName": "deal",
+    "pluralName": "deals",
+    "displayName": "Deal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "TitleDeal": {
+      "type": "string"
+    },
+    "Code": {
+      "type": "boolean"
+    },
+    "ExpireDate": {
+      "type": "datetime"
+    },
+    "DescriptionHotDeal": {
+      "type": "text"
+    },
+    "DescriptionCurrentCost": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
+    }
+  }
+}
